@@ -1,7 +1,6 @@
 # Práctica 3: Viajando en el Tiempo y Corrigiendo el Historial
 
-**Alumno:** Hugo Martín Toledano  
-**Curso:** 2º DAW
+**Hugo Martín Toledano - 2º DAW**
 
 ---
 
@@ -9,14 +8,7 @@
 
 ## Paso 1: Creación del proyecto
 
-Primero configuré `main` como rama por defecto y creé la carpeta del proyecto.
-
-```bash
-git config --global init.defaultBranch main
-mkdir git-historial-practica
-cd git-historial-practica
-git init
-```
+He configurado la rama `main`, creado la carpeta de la práctica e inicializado el repositorio.
 
 ![Creación del repositorio](capturas/1.png)
 
@@ -24,18 +16,11 @@ git init
 
 ## Paso 2: Commit C1
 
-Creé el archivo `calculadora.py` con una función básica para sumar dos números.
-
-Después añadí el archivo al repositorio e hice el primer commit:
-
-```bash
-git add calculadora.py
-git commit -m "C1: Creación de la función sumar."
-```
+He creado `calculadora.py` con la función `sumar` y he realizado el primer commit.
 
 ![Commit C1](capturas/2.png)
 
-El código en este momento solo tenía la función `sumar`.
+Así quedó el archivo después de crear la función:
 
 ![Función sumar](capturas/3.png)
 
@@ -43,15 +28,9 @@ El código en este momento solo tenía la función `sumar`.
 
 ## Paso 3: Commit C2
 
-Después modifiqué `calculadora.py` para añadir la función `restar`.
+He añadido la función `restar` y después he guardado el cambio en un nuevo commit.
 
 ![Función restar](capturas/4.png)
-
-Guardé los cambios utilizando:
-
-```bash
-git commit -a -m "C2: Añadida la función restar."
-```
 
 ![Commit C2](capturas/5.png)
 
@@ -59,212 +38,101 @@ git commit -a -m "C2: Añadida la función restar."
 
 # Fase 2: Inspección y etiquetado del historial
 
-## Paso 1: Ver el historial completo
+## Tarea 2.1
 
-Para ver los commits junto con los cambios realizados utilicé:
+He revisado el historial completo y en C2 aparecen **8 inserciones y 1 eliminación**.
 
-```bash
-git log -p --stat
-```
-
-![Historial detallado](capturas/6.png)
-
-En el commit C2 se realizaron **8 inserciones y 1 eliminación**.
+![Historial completo](capturas/6.png)
 
 ---
 
 ## Paso 2: Historial resumido
 
-Después mostré los commits en una sola línea utilizando:
-
-```bash
-git log --pretty=format:"%h - %an, %ar : %s"
-```
+He mostrado los commits en una sola línea para ver mejor sus hashes.
 
 ![Historial resumido](capturas/7.png)
 
-Los hashes abreviados fueron:
-
-- **C1:** `2c09ea1`
-- **C2:** `96f05ce`
-
 ---
 
-## Paso 3: Crear una etiqueta
+## Tarea 2.2
 
-Creé una etiqueta para marcar C2 como una versión estable:
-
-```bash
-git tag v1.0-estable
-```
-
-Después comprobé que se había creado:
-
-```bash
-git tag
-```
+He creado la etiqueta `v1.0-estable` y he comprobado que aparece correctamente.
 
 ![Etiqueta v1.0-estable](capturas/8.png)
 
-La etiqueta `v1.0-estable` aparece correctamente.
-
 ---
 
-## Paso 4: Comparar versiones
+## Tarea 2.3
 
-Comparé C1 con la versión `v1.0-estable`:
+He comparado C1 con `v1.0-estable` y aparece la función `restar` como cambio añadido.
 
-```bash
-git diff 2c09ea1 v1.0-estable
-```
-
-![Comparación entre versiones](capturas/9.png)
-
-En la salida se puede ver que se añadió la función `restar` y su línea de prueba.
+![Comparación de versiones](capturas/9.png)
 
 ---
 
 # Fase 3: Deshaciendo y corrigiendo cambios
 
-## Paso 1: Cambio sin staging
+## Tarea 3.1
 
-Añadí un comentario incorrecto al archivo y comprobé que Git detectaba el cambio:
+He añadido el comentario erróneo y después lo he eliminado con `git restore`. Al final el repositorio vuelve a estar limpio.
 
-```bash
-git status
-```
-
-Después utilicé:
-
-```bash
-git restore calculadora.py
-```
-
-y volví a comprobar el estado.
-
-![Uso de git restore](capturas/10.png)
-
-El comentario desapareció y el repositorio volvió a estar limpio.
+![Git restore](capturas/10.png)
 
 ---
 
-## Paso 2: Cambio añadido al staging
+## Paso 2: Cambio en staging
 
-Volví a realizar el cambio, pero esta vez lo añadí al staging:
+He añadido el cambio al staging, lo he sacado de nuevo y finalmente he descartado el cambio.
 
-```bash
-git add calculadora.py
-git status
-```
-
-Después lo saqué del staging:
-
-```bash
-git restore --staged calculadora.py
-git status
-```
-
-Finalmente descarté el cambio completamente:
-
-```bash
-git restore calculadora.py
-git status
-```
-
-![Uso de restore con staging](capturas/11.png)
-
-Primero el archivo aparece preparado para hacer commit, después vuelve a estar modificado fuera del staging y finalmente queda limpio.
+![Restore staged](capturas/11.png)
 
 ---
 
-## Paso 3: Commit C3 con un error
+## Paso 3: Commit C3
 
-Añadí la función `multiplicar`, pero de forma intencionada tenía un error porque realizaba una suma:
-
-```python
-def multiplicar(a, b):
-    return a + b
-```
-
-Hice el commit:
-
-```bash
-git commit -a -m "C3: Añadida la función multiplicar (con un bug conceptual)."
-```
+He creado C3 con la función `multiplicar` mal hecha de forma intencionada.
 
 ![Commit C3](capturas/12.png)
 
 Este era el código con el error:
 
-![Código con el error](capturas/13.png)
+![Error en multiplicar](capturas/13.png)
 
 ---
 
-## Paso 4: Deshacer C3 con revert
+## Tarea 3.2
 
-Para deshacer C3 sin eliminarlo del historial utilicé:
+He usado `git revert` para deshacer C3 sin borrarlo del historial.
 
-```bash
-git revert HEAD --no-edit
-```
-
-Después comprobé los últimos commits:
-
-```bash
-git log --pretty=oneline -3
-```
-
-![Uso de git revert](capturas/14.png)
-
-Git creó un nuevo commit que deshace C3, pero el commit con el error sigue apareciendo en el historial.
+![Git revert](capturas/14.png)
 
 ---
 
-## Paso 5: Corregir el último commit
+## Paso 5: Corrección de multiplicar
 
-Volví a añadir la función `multiplicar`, esta vez de forma correcta:
+He corregido la función para que haga la multiplicación correctamente.
 
-```python
-def multiplicar(a, b):
-    return a * b
-```
+![Multiplicar corregida](capturas/15.png)
 
-![Función multiplicar corregida](capturas/15.png)
+---
 
-Después añadí el archivo y modifiqué el último commit:
+## Tarea 3.3
 
-```bash
-git add calculadora.py
-git commit --amend -m "C4: Revertido C3 y añadida correctamente la función multiplicar."
-```
-
-Para terminar comprobé el historial:
-
-```bash
-git log
-```
+He usado `amend` para modificar el último commit. El nuevo C4 tiene el mensaje corregido y un hash diferente.
 
 ![Historial final](capturas/16.png)
 
-El nuevo hash de C4 es `e5a0ca4`.
+---
 
-Antes del `amend`, el commit de revert tenía el hash `5da5cc7`, por lo que se puede ver que el hash cambió.
+# Autoevaluación
+
+## 1. ¿Cuál es el hash abreviado del commit C1?
+
+ El hash abreviado del commit es `2c09ea1`
 
 ---
 
-# Ejercicios de Autoevaluación
-
-## 1. ¿Cuál es el hash abreviado de C1?
-
-El hash abreviado de C1 es:
-
-```text
-2c09ea1
-```
-
----
-
-## 2. Comando para viajar al commit anterior a `v1.0-estable`
+## 2. Comando para ir al commit anterior a `v1.0-estable`
 
 ```bash
 git switch --detach v1.0-estable^
@@ -272,18 +140,14 @@ git switch --detach v1.0-estable^
 
 ---
 
-## 3. ¿Qué habría pasado usando `git reset --hard` en lugar de `git revert`?
+## 3. ¿Qué habría pasado usando `git reset --hard` en vez de `git revert`?
 
-Se habrían eliminado commits de mi historial local.
+Habría borrado commits de mi historial y podría dar problemas si otras personas ya tenían esos commits en su repositorio.
 
-Si el repositorio estuviera compartido con más personas podría dar problemas, porque ellos podrían seguir teniendo esos commits y nuestros historiales serían diferentes.
-
-Con `git revert` esto no pasa, porque no borra el historial, sino que añade otro commit para deshacer los cambios.
+Con `git revert` no se borra el historial, simplemente se añade otro commit que deshace el cambio.
 
 ---
 
 ## 4. ¿Dónde apunta HEAD al terminar?
 
-Al terminar, `HEAD` está apuntando a la rama `main`.
-
-Por tanto, no está en modo `Detached HEAD`.
+Al final `HEAD` apunta a la rama `main`, por lo que no está en modo `Detached HEAD`.
