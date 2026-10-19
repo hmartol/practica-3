@@ -3,8 +3,6 @@
 **Alumno:** Hugo Martín Toledano  
 **Curso:** 2º DAW
 
-**Repositorio:** [Enlace al repositorio](PEGA_AQUI_EL_ENLACE)
-
 ---
 
 # Fase 1: Inicialización y primeros commits
